@@ -1,0 +1,25 @@
+Website:
+http://www.expedia.com
+
+Recommenders:
+Expedia has two types of recommenders. Viewing on a desktop/laptop is the best way to see these recommenders (mobile/tablet sites have a different layouts).
+1) "Popular hotels near you". The recommender shows up when a user clicks on "Shop->Hotels" from the Expedia front page or opens up "expedia.com/Hotels". We will call it the "Hotels-recommender"
+2) "Today's Top Deals". The recommender shows up on the expedia.com landing page. We will call it the "Deals-recommender"
+
+Analysis:
+
+1) Domain: For both recommenders, the domain is primarily products. The product for Hotels-recommender, is obviously, hotels and the product of Deals-recommender is the popular vacation package of return flight + hotel + (optionally) car. Since no user information is used (the user is not logged in), the recommenders can re-recommend previously used products.
+
+2) Purpose: The purpose if both recommenders is two-folds --- Sales and user acquisition. A user might be compelled to make an impulse purchase (or a last minute purchase) using the Deals-recommender. Or it is easy to see the Hotels-recommender providing a 'one-click' method for reserving last-minute hotels. However, these features can also help acquire users through word-of-mouth publicity, for example, an existing user showing-off these recommendations to his/her friend.
+
+3) Context: The context for the Deals-recommender is local date and time. The context for Hotels-recommender is time and location. None of the user information is required in the context. The only other contextual information critical to the recommenders is availability of particular hotel/deal. Thus the real-time availability information of the relevant hotel/deal becomes the part of the context.
+
+4) Opinions: Both recommenders take into account the opinions of "others" or "phoaks". These opinions are displayed in form of starts (0 to 5 at an increment of half). The recommendations might not be not strictly ordered by the ratings, but it is observed that highly ranked recommendations are displayed at the top/beginning. 
+
+5) Personalization: The only possible personalization for these recommenders is the user's location. The Deals-recommender also displays some results that are location independent and globally popular.	
+
+6) Privacy and risks: Low risk. No personal information is used in any context. Having said that, location information might result in some location-based advertising/spamming and might potentially clutter the true recommendations. One has to trust the website itself to keep the advertising to the minimum and display highly ranked recommendations.  
+
+7) Interfaces: Interface for the Hotels-recommender shows a simple list of hotels with their star ratings and prices. The Deals-recommender has divided the deals in separate categories ("groupon gateways", or "last-minute gateways"). Each category itself contains links to the deals with their prices and star ratings.
+  
+8) Recommendation Algorithms: Recommendation algorithm includes some aggregation added to the business rules. Business rules probably select categories in Deals-recommender. 
