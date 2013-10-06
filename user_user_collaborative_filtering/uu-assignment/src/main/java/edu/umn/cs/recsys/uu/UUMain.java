@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
  * pair to score.
  *
  * <ul>
+ * <li>Revision 3: make compatible with Java 6</li>
  * <li>Revision 2: use root locale for output formatting</li>
  * </ul>
  *
@@ -83,13 +84,13 @@ public class UUMain {
      * @return A map of users to the sets of items to score for them.
      */
     private static Map<Long, Set<Long>> parseArgs(String[] args) {
-        Pattern pat = Pattern.compile("(?<user>\\d+):(?<item>\\d+)");
+        Pattern pat = Pattern.compile("(\\d+):(\\d+)");
         Map<Long, Set<Long>> map = Maps.newHashMap();
         for (String arg: args) {
             Matcher m = pat.matcher(arg);
             if (m.matches()) {
-                long uid = Long.parseLong(m.group("user"));
-                long iid = Long.parseLong(m.group("item"));
+                long uid = Long.parseLong(m.group(1));
+                long iid = Long.parseLong(m.group(2));
                 if (!map.containsKey(uid)) {
                     map.put(uid, Sets.<Long>newHashSet());
                 }
