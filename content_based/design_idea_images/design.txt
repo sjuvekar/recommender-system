@@ -1,0 +1,33 @@
+My proposed recommendation system will aim at recommending cars/automobiles to perspective customers. Here are the details of content-based filtering for the recommender:
+
+Context: People buy cars all the time. Here is a list of per-1000 vehicles according to the country of residence: http://en.wikipedia.org/wiki/List_of_countries_by_vehicles_per_capita. All cars, however, are not created equal and all car needs are different as well. Car companies spend significant resources in advertising their vehicles, but, buying car is a more subjective decision and a buyer's needs/preferences form a significant part of his buying process. Content-based filtering finds a good application in recommending cars to perspective buyers. The proposed content-based filtering system is based on popular websites like CarMax (http://www.carmax.com/ENUS/car-recommender/default.html).
+
+Content Attributes: Content attributes are important in order to form accurate user profile. Here are some of the useful attributes for car selection:
+1) Price: Price of a car is one of the most important factors in buying decision. How much is someone willing to pay for a car? Could be categorized like ($10k-$20k), ($20k-$30k), ($30k-$50k) and a high end price segment of ($50k-on wards).
+
+2) Year of make/weather brand new or second hand: Price of car depreciates by year and hence year of make is a good comparison point for vehicles. Some countries have a very strong used-vehicle programs, and used vehicles are much cheaper. This attribute might be helpful in making buying decision.
+
+3) Intended use: Categories of intended use include: Commute, long distance travel, commercial, luxury etc. It could be one of the strongest discriminating factors in matching user profile against vehicle profile since many cars are specialized for one use (e.g. high end luxury cars are not suitable for daily commute to work).
+
+4) Company and its past rating: Car company is also one of the most significant factors in buyer's decision and also one of the strongest discriminating features in matching user profile against vehicle profile.
+ 
+5) Expected maintenance: This attribute can be derived from company/year of make, but in itself makes a good feature for matching profiles.
+
+6) Vehicle type: Categories include Van, SUV, Sedan, convertible etc. One of the strongest discriminating attribute in matching profiles.
+
+7) Buyer's country: Buyer's country might be important in recommending vehicles if we have good enough indicator attribute for which vehicles perform best in which country.
+
+Obtaining user profile: 
+I see two ways of obtaining user profile: 
+1) Ask a user to fill web form/forms to pick values for every category. This could be cumbersome for some users, while educational for others. The success/failure of this approach depends on how accurate/detailed a user's answers are. This is also the approach taken in CarMax. 
+2) Show pictures/descriptions of a bunch of vehicles to a user and ask him/her to rate them. This is essentially the approach of MovieLens. The more cars a user rates, the more accurate his profile.
+
+Users with different preferences at different times:
+Usually, users' preference for car stay fixed for a longer duration than day, and hence changing preferences is not a big problem here. Still, a user's preference might change over course of years, or because of change of location/country. In that case, asking user to refill the information to recreate his profile is not a bad idea. Remember that a user is only changing his profile infrequently and the extra work of re-filling the form is certainly tolerable.
+
+Unhappy user:
+There are a several ways for an unhappy user to update his.her profile
+1) Show him/her the top recommended cars and ask him/her about the attribute he/she dislikes. It could be price/car company etc. In that case, reduce the corresponding attribute value in his profile vector.
+2) Ask the user to pick his most favorite car in the recommended list. It could be at top, but more likely, it will be right at the bottom. Adjust the user's profile vector by adding the favorite car's attribute vector. Also, ask the user what he likes about this car. Try to increase the value of his favorite attribute using the car's attribute.
+
+Finally. here is a snapshot of CarMax's popular recommender system. It implements some but not most of the proposed recommender in this text.

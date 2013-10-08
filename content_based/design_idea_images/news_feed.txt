@@ -1,0 +1,14 @@
+1) Recommender Systems News Feed:
+The goal of this News feed is to find all News articles related to Recommender Systems. I created this News feed using Google's "Customized Feed" button adding following Search Keywords: "Recommender Systems, recsys, Product Recommendations". I restricted the category to Technology.
+Performance: There are some accurate results on the top of the News feed --- BBQ app recommendations or Halloween ideas. But there are some decidedly bad results down the page --- "Celebrities who do more...". This can be improved by a more fine-tuning of the News feed, removing results from sources like "neotammy.com".
+Screenshot:
+
+2) Immigration Reform News Feed:
+The purpose of this News feed is to collect News regarding the immigration reform effort currently under progress in US House of Representatives. I created this News Feed using a simple search query "Immigration Reform" and used additional sliders to reduce contribution from sports-related sites like espn.com; and increase contributions from sites like cnn.com
+Performance: Since "immigration reform" is a well defined term and there has been a lot of News-activity surrounding the term, the top News articles are highly relevant and this recommendation system performs well in non-personalized manner with a relatively simple query.
+Screenshot:
+
+3) Apple News Feed:
+My purpose in creating this News feed is to gather all the News related to "Apple" (the company, not the fruit). I again created this News feed with a simple search term (Apple) and restricting results to News sites like cnn, nytimes etc.
+Performance: Surprising fact about this feed is that without much contextual information (like iphone, ipad), the News feed correctly realizes the search intent and displays highly relevant articles related to Apple (the company).There is one tiny News on top related to Apple-the fruit ---  "Fresh apple pie recepe"  
+Screenshot:
