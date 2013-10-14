@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class CBFMain {
     private static final Logger logger = LoggerFactory.getLogger(CBFMain.class);
+    private static ItemRecommender irec;
 
     public static void main(String[] args) throws RecommenderBuildException {
         LenskitConfiguration config = configureRecommender();
@@ -35,7 +36,7 @@ public class CBFMain {
         }
 
         // we automatically get a useful recommender since we have a scorer
-        ItemRecommender irec = rec.getItemRecommender();
+        irec = rec.getItemRecommender();
         assert irec != null;
         try {
             // Generate 5 recommendations for each user
@@ -62,6 +63,10 @@ public class CBFMain {
                 System.out.println("Congratulations, the stub builds and runs!");
             }
         }
+    }
+    
+    public static List<ScoredId> getRecommendationsFor(Long userId, Integer recs) {
+    	return irec.recommend(userId, recs);
     }
 
     /**

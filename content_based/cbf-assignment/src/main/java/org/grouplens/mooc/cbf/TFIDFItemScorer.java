@@ -53,8 +53,10 @@ public class TFIDFItemScorer extends AbstractItemScorer {
             // Get the item vector for this item
             SparseVector iv = model.getItemVector(e.getKey());
             // TODO Compute the cosine of this item and the user's profile, store it in the output vector
+            double cosine_score = iv.dot(userVector) / (iv.norm() * userVector.norm());
+	    output.set(e.getKey(), cosine_score);
             // TODO And remove this exception to say you've implemented it
-            throw new UnsupportedOperationException("stub implementation");
+            //throw new UnsupportedOperationException("stub implementation");
         }
     }
 
@@ -71,20 +73,57 @@ public class TFIDFItemScorer extends AbstractItemScorer {
         // Fill it with 0's initially - they don't like anything
         profile.fill(0);
 
+	// Get average ratings from this user
+	double avg_ratings = getAverageRatings(userRatings);
+
         // Iterate over the user's ratings to build their profile
         for (Rating r: userRatings) {
             // In LensKit, ratings are expressions of preference
             Preference p = r.getPreference();
+
+	    // Unweighted: uncomments this part for unweighted recommendations
+
+	    /*
             // We'll never have a null preference. But in LensKit, ratings can have null
             // preferences to express the user unrating an item
             if (p != null && p.getValue() >= 3.5) {
                 // The user likes this item!
                 // TODO Get the item's vector and add it to the user's profile
+                long item_id = r.getItemId();
+		SparseVector item_vector = model.getItemVector(item_id);
+		profile.add(item_vector);
             }
+	    */
+	    	
+	    // Weighted: Uncomments this part for weighted recommendations
+	    if (p != null) {
+		long item_id = r.getItemId();
+		MutableSparseVector item_vector = model.getItemVector(item_id).mutableCopy();
+		// Multiply by weight
+		double weight = p.getValue() - avg_ratings;
+		item_vector.multiply(weight);
+		profile.add(item_vector);
+	    }
+	    
         }
 
         // The profile is accumulated, return it.
         // It is good practice to return a frozen vector.
         return profile.freeze();
+    }
+
+
+    private double getAverageRatings(List<Rating> userRatings) {
+	double avg_ratings = 0.;
+	int total_ratings = 0;
+	for (Rating r: userRatings) {
+		Preference p = r.getPreference();
+		if (p != null) {
+			avg_ratings += p.getValue();
+			total_ratings++;
+		}
+	}
+	avg_ratings /= total_ratings;
+	return avg_ratings;
     }
 }
