@@ -128,5 +128,29 @@ trainTest {
         bind VectorSimilarity to CosineVectorSimilarity
     }
 
+    algorithm("Lucene") {
+    	attributes["NNbrs"] = nnbrs
+    	include tagConfig
+    	bind ItemScorer to ItemItemScorer
+    	bind ItemItemModel to LuceneItemItemModel
+    	set NeighborhoodSize to nnbrs
+    	// consider using all 100 movies as neighbors
+    	set ModelSize to 100
+    }
+
+    algorithm("LuceneNorm") {
+    	attributes["NNbrs"] = nnbrs
+    	include tagConfig
+    	bind ItemScorer to ItemItemScorer
+    	bind ItemItemModel to LuceneItemItemModel
+    	set NeighborhoodSize to nnbrs
+    	// consider using all 100 movies as neighbors
+    	set ModelSize to 100
+    	bind UserVectorNormalizer to BaselineSubtractingUserVectorNormalizer
+    	within (UserVectorNormalizer) {
+        	bind (BaselineScorer, ItemScorer) to ItemMeanRatingItemScorer
+    	}
+    }
+
     }
 }
