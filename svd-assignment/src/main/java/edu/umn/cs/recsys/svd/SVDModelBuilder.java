@@ -81,9 +81,16 @@ public class SVDModelBuilder implements Provider<SVDModel> {
 
         // Third, truncate the decomposed matrix
         // TODO Truncate the matrices and construct the SVD model
-
+        RealMatrix originalU = svd.getU();
+        RealMatrix originalV = svd.getV();
+        RealMatrix originalWeight = svd.getS();
+        int originalURowCount = originalU.getRowDimension();
+        int originalVRowCount = originalV.getRowDimension();
+        RealMatrix uMat = originalU.getSubMatrix(0, originalURowCount - 1, 0, featureCount - 1);
+        RealMatrix vMat = originalV.getSubMatrix(0, originalVRowCount - 1, 0, featureCount - 1);
+        RealMatrix weights = originalWeight.getSubMatrix(0, featureCount - 1, 0, featureCount - 1);
         // TODO Replace this throw line with returning the model when you are finished
-        throw new UnsupportedOperationException("SVD model not yet implemented");
+        return new SVDModel(userMapping, itemMapping, uMat, vMat, weights);
     }
 
     /**
@@ -112,6 +119,12 @@ public class SVDModelBuilder implements Provider<SVDModel> {
                 MutableSparseVector baselines = MutableSparseVector.create(ratings.keySet());
                 baselineScorer.score(user.getUserId(), baselines);
                 // TODO Populate this user's row with their ratings, minus the baseline scores
+                for (VectorEntry e: ratings.fast(VectorEntry.State.EITHER)) {
+                    long origItemId = e.getKey();
+                    int itemId = itemMapping.getIndex(origItemId);
+                    double newScore = e.getValue() - baselines.get(origItemId, 0);
+                    matrix.setEntry(u, itemId, newScore);
+                }
             }
         } finally {
             users.close();

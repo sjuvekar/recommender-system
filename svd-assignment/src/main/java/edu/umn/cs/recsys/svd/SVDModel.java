@@ -98,6 +98,15 @@ public class SVDModel implements Serializable {
     }
 
     /**
+     * Get a user feature vector matrix.  Its rows are user and its columns are latent features.
+     *
+     * @return The user-feature matrix (this must not be modified).
+     */
+    public RealMatrix getUserFeatureMatrix() {
+        return userFeatureMatrix;
+    }
+
+    /**
      * Get the user index mapping.
      * @return The mapping between user IDs and matrix row numbers.
      */

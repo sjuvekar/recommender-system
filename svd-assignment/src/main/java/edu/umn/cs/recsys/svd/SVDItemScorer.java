@@ -53,10 +53,24 @@ public class SVDItemScorer extends AbstractItemScorer {
     @Override
     public void score(long user, @Nonnull MutableSparseVector scores) {
         // TODO Score the items in the key domain of scores
+        if (!model.getUserIndexMapping().containsId(user)) {
+          scores.clear();
+          return;
+        }
+        int userId = model.getUserIndexMapping().getIndex(user);
+        RealMatrix weights = model.getFeatureWeights();
+        RealMatrix U = model.getUserFeatureMatrix();
+        RealMatrix V = model.getItemFeatureMatrix();
 
         for (VectorEntry e: scores.fast(VectorEntry.State.EITHER)) {
             long item = e.getKey();
+            int itemId = model.getItemIndMapping().getIndex(item);
             // TODO Set the scores
+            RealMatrix UFeatures = U.getRowMatrix(userId);
+            RealMatrix VFeatures = V.getRowMatrix(itemId);
+            double score = baselineScorer.score(user, item) +
+                           UFeatures.multiply(weights).multiply(VFeatures.transpose()).getEntry(0, 0);
+            scores.set(item, score);
         }
     }
 
